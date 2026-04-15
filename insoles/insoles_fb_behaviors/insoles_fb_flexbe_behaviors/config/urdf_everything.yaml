@@ -1,2 +1,0 @@
-urdf_nodes:
-  - roslaunch insoles_description insoles_on_feet.launch foot_left_name:=$FOOT_LEFT_NAME foot_right_name:=$FOOT_RIGHT_NAME insole_length:=$INSOLE_LENGTH tf_prefix:=$TF_PREFIX ignore_insole_imu_for_vis:=$IGNORE_INSOLE_IMU_FOR_VIS adjustable_tfs:=$ADJUSTABLE_TFS insole_distance_from_foot:=${INSOLE_DISTANCE_FROM_FOOT} scale:=$SCALE 

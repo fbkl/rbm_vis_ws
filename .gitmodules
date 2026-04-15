@@ -4,78 +4,15 @@
 [submodule "ar_track_alvar"]
 	path = ar_track_alvar
 	url = https://github.com/opensimrt-ros/ar_track_alvar.git
-[submodule "brio_cam"]
-	path = brio_cam
-	url = https://github.com/opensimrt-ros/brio_cam.git
-[submodule "cometa_bridge"]
-	path = cometa_bridge
-	url = https://github.com/opensimrt-ros/cometa_bridge.git
-[submodule "custom_clock"]
-	path = custom_clock
-	url = https://github.com/opensimrt-ros/custom_clock.git
-[submodule "ddynamic_reconfigure"]
-	path = ddynamic_reconfigure
-	url = https://github.com/pal-robotics/ddynamic_reconfigure.git
-[submodule "demo_description"]
-	path = demo_description
-	url = https://github.com/opensimrt-ros/demo_description.git
-[submodule "eye_tracker"]
-	path = eye_tracker
-	url = https://github.com/opensimrt-ros/eye_tracker.git
-[submodule "gait1992_description"]
-	path = gait1992_description
-	url = https://github.com/opensimrt-ros/gait1992_description.git
-[submodule "human_state_publisher"]
-	path = human_state_publisher
-	url = https://github.com/opensimrt-ros/human_state_publisher.git
-[submodule "imu_tools"]
-	path = imu_tools
-	url = https://github.com/CCNYRoboticsLab/imu_tools.git
-[submodule "insoles/moticon_insoles"]
-	path = insoles/moticon_insoles
-	url = https://github.com/opensimrt-ros/moticon_insoles.git
-[submodule "insoles/test_moticon_insoles"]
-	path = insoles/test_moticon_insoles
-	url = https://github.com/opensimrt-ros/test_moticon_insoles.git
-[submodule "insoles/insole_msgs"]
-	path = insoles/insole_msgs
-	url = https://github.com/opensimrt-ros/insole_msgs.git
-[submodule "lab_description"]
-	path = lab_description
-	url = https://github.com/opensimrt-ros/lab_description.git
-[submodule "lib_moment_arm"]
-	path = lib_moment_arm
-	url = https://github.com/opensimrt-ros/lib_moment_arm.git
-[submodule "mobl_description"]
-	path = mobl_description
-	url = https://github.com/opensimrt-ros/mobl_description.git
-[submodule "moveit_human"]
-	path = moveit_human
-	url = https://github.com/opensimrt-ros/moveit_human.git
 [submodule "osrt_ros"]
 	path = osrt_ros
 	url = https://github.com/opensimrt-ros/osrt_ros.git
-[submodule "test_osrt_ros"]
-	path = test_osrt_ros
-	url = https://github.com/opensimrt-ros/test_osrt_ros.git
-[submodule "ximu3_ros"]
-	path = ximu3_ros
-	url = https://github.com/opensimrt-ros/ximu3_ros.git
-[submodule "video_stream_opencv"]
-	path = video_stream_opencv
-	url = https://github.com/opensimrt-ros/video_stream_opencv.git
 [submodule "vicon_sync"]
 	path = vicon_sync
 	url = https://github.com/opensimrt-ros/vicon_sync.git
-[submodule "tmux_session"]
-	path = tmux_session
-	url = https://github.com/opensimrt-ros/tmux_session.git
 [submodule "realsense-ros"]
 	path = realsense-ros
 	url = https://github.com/IntelRealSense/realsense-ros.git
-[submodule "usb_cam"]
-	path = usb_cam
-	url = https://github.com/ros-drivers/usb_cam.git
 [submodule "acquisition_state_machines/flexbe_behavior_engine"]
 	path = acquisition_state_machines/flexbe_behavior_engine
 	url = https://github.com/FlexBE/flexbe_behavior_engine.git
@@ -88,14 +25,3 @@
 [submodule "acquisition_state_machines/acquisition_fb_behaviors"]
 	path = acquisition_state_machines/acquisition_fb_behaviors
 	url = https://github.com/opensimrt-ros/acquisition_fb_behaviors.git
-[submodule "insoles/insole_republisher"]
-	path = insoles/insole_republisher
-	url = https://github.com/opensimrt-ros/insole_republisher.git
-[submodule "imu_delay_finder"]
-	path = imu_delay_finder
-	pushurl = git@github.com:frederico-klein/imu_delay_finder.git
-	url = https://github.com/frederico-klein/imu_delay_finder.git
-[submodule "activity_detector"]
-	path = activity_detector
-	pushurl = git@github.com:frederico-klein/activity_detector.git
-	url = https://github.com/frederico-klein/activity_detector.git
