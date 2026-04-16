@@ -25,3 +25,6 @@
 [submodule "acquisition_state_machines/acquisition_fb_behaviors"]
 	path = acquisition_state_machines/acquisition_fb_behaviors
 	url = https://github.com/opensimrt-ros/acquisition_fb_behaviors.git
+[submodule "vio_launch"]
+	path = vio_launch
+	url = git@github.com:fbkl/vio_launch.git
