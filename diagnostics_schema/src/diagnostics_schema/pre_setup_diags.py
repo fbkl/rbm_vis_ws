@@ -26,6 +26,7 @@ class ATest(ABC):
         super().__init__()
         self.criticality = criticality
         self.tips= []
+        self.hostreturn = None
         if tips:
             self.tips = tips
 
