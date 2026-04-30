@@ -17,4 +17,22 @@
       <statustip>Great user interface to provide real value.</statustip>
     </qtgui>
   </class>
+  <class name="Vio Rqt Plugin" type="rqt_acquisition.vio_module.VioPlugin" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      The vio version of this guy.
+    </description>
+    <qtgui>
+      <!-- optional grouping...
+      <group>
+        <label>Group</label>
+      </group>
+      <group>
+        <label>Subgroup</label>
+      </group>
+      -->
+      <label>VIO Acquisition Control</label>
+      <icon type="theme">system-help</icon>
+      <statustip>Great vio user interface to provide real value.</statustip>
+    </qtgui>
+  </class>
 </library>

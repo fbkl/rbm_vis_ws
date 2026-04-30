@@ -4,7 +4,7 @@ from catkin_pkg.python_setup import generate_distutils_setup
 d = generate_distutils_setup(
     packages=['rqt_acquisition'],
     package_dir={'': 'src'},
-    scripts=['scripts/rqt_aquisition']
+    scripts=['scripts/rqt_aquisition','scripts/rqt_vioacq']
 )
 
 setup(**d)

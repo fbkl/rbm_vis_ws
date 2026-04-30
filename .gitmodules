@@ -10,10 +10,6 @@
 [submodule "vicon_sync"]
 	path = vicon_sync
 	url = https://github.com/opensimrt-ros/vicon_sync.git
-[submodule "realsense-ros"]
-	path = realsense-ros
-	url = https://github.com/IntelRealSense/realsense-ros.git
-	branch = ros1-legacy
 [submodule "acquisition_state_machines/flexbe_behavior_engine"]
 	path = acquisition_state_machines/flexbe_behavior_engine
 	url = https://github.com/FlexBE/flexbe_behavior_engine.git
