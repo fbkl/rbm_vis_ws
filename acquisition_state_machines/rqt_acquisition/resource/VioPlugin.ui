@@ -224,6 +224,32 @@
 			</property>
 		</widget>
 		
+		<widget class="QPushButton" name="srv1_button">
+			<property name="geometry">
+				<rect>
+					<x>5</x>
+					<y>680</y>
+					<width>300</width>
+					<height>37</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>reseterino rovios</string>
+			</property>
+		</widget>
+		<widget class="QPushButton" name="srv2_button">
+			<property name="geometry">
+				<rect>
+					<x>5</x>
+					<y>730</y>
+					<width>300</width>
+					<height>37</height>
+				</rect>
+			</property>
+			<property name="text">
+				<string>calibrate markers</string>
+			</property>
+		</widget>
 
 		<widget class="QGroupBox" name="activity_group">
 			<property name="title">

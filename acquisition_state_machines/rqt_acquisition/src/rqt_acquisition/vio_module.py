@@ -139,6 +139,10 @@ class VioPlugin(Plugin):
         self.sw = rospy.Service("/rqt_acquisition/update_widgets", Empty, self.update_widget_states)
         self.sp = rospy.Service("/rqt_acquisition/refresh_paths", Empty, self.refresh_path_service)
 
+        #mm = ["thorax","radius"] ## TODO: this shouldnt be hard coded
+        self.reset_rov = []
+        self.calib_rov = []
+
 
         # Process standalone plugin command-line arguments
         from argparse import ArgumentParser
@@ -187,6 +191,8 @@ class VioPlugin(Plugin):
         self._widget.generate_lib_moment_arm_button.clicked[bool].connect(self._handle_lib_moment_clicked)
         self._widget.generate_action_notebook_button.clicked[bool].connect(self._generate_notebook_clicked)
         
+        self._widget.srv1_button.clicked[bool].connect(self._srv1_clicked)
+        self._widget.srv2_button.clicked[bool].connect(self._srv2_clicked)
 
         self.flexbe_commander_publisher = rospy.Publisher("/flexbe/command/transition", OutcomeRequest, queue_size=1)
         self.state_subscriber           = rospy.Subscriber("/flexbe/behavior_update", String, callback=self.update_state, queue_size=1)
@@ -243,8 +249,14 @@ class VioPlugin(Plugin):
         self.save_path = ""
         self.description_text = ""
         self.activity_counter = 0
+        self.ori_list = ["thoRax","radIus"]
 
         self.set_from_params()
+        
+        #hopefully ori_list is already set properly after the setup
+        for body in self.ori_list:
+            self.reset_rov.append( rospy.ServiceProxy(f"/{body}/rovio/reset", Empty) )
+            self.calib_rov.append( rospy.ServiceProxy(f"/{body}/calib", Empty) )
 
         print_events(self._widget.activity_name)
         
@@ -324,6 +336,7 @@ class VioPlugin(Plugin):
         if rospy.has_param(self.my_namespace):
             my_dic = rospy.get_param(self.my_namespace)
             for key, value in my_dic.items():
+                rospy.logwarn(f"set_from_params:: {self.my_namespace}/{key}: {value} ")
                 setattr(self, key, value)
             self._was_set_to_params = False ## this means that my information is NOT current
         else:
@@ -598,6 +611,23 @@ class VioPlugin(Plugin):
             command_msg.target = 'recalibrate_rovio'
             self.flexbe_commander_publisher.publish(command_msg)
             #self._widget.model_group.setEnabled(Falseart)
+        except:
+            traceback.print_exception()
+    
+    def _srv1_clicked(self): ###eh this is different!
+        rospy.loginfo("srv1_button clicked!")
+        try:
+            for some_srv in self.reset_rov:
+                some_srv()
+        except:
+            traceback.print_exception()
+    
+    def _srv2_clicked(self): ###eh this is different!
+        rospy.loginfo("srv2_button clicked!")
+        try:
+            for some_srv in self.calib_rov:
+                some_srv()
+            
         except:
             traceback.print_exception()
 
