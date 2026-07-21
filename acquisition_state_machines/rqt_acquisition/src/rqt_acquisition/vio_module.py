@@ -109,6 +109,7 @@ def create_path_label(subject_id, activity_name, session_num):
     rospy.logdebug(subject_id)
     rospy.logdebug(activity_name)
     rospy.logdebug(session_num)
+    rospy.logwarn("ATTENTION! create_path_label function has a hardcoded local path!!! PLEASE CHANGE!")
     return os.path.join("/srv/host_data/RTValidation", subject_id,session_num)
 
 def validate_model(model_file):
@@ -202,7 +203,7 @@ class VioPlugin(Plugin):
             model = QFileSystemModel()
 
 
-            models_path ="/srv/host_data/models/height_adjusted" 
+            models_path ="/srv/shared/osim" 
             if os.path.exists(models_path):
                 model.setRootPath(models_path)
             else:
@@ -222,17 +223,6 @@ class VioPlugin(Plugin):
             #rospy.logdebug(model.size())
             #rospy.logdebug(model.event())
 
-        if True:
-            #rospy.logerr(dir(self._widget.model_selector.SelectedClicked))
-            self._widget.keyPressEvent = self._handle_model_changed_keypress
-
-            self._widget.model_selector.setModel(model)
-            self._widget.model_selector.setColumnHidden(1,True)
-            self._widget.model_selector.setColumnHidden(2,True)
-            self._widget.model_selector.setColumnHidden(3,True)
-            self._widget.model_selector.expandAll()
-            
-            self._widget.model_selector.viewport().installEventFilter(self)
 
         self.my_namespace = 'rqt_acquisition'
 
@@ -252,7 +242,21 @@ class VioPlugin(Plugin):
         self.ori_list = ["thoRax","radIus"]
 
         self.set_from_params()
+        self.update_paths()
+        log.warn(f"what text is in the widget? {self._widget.resolved_path_name.text()}")
         
+        if True: ## we update the directory widget after getting the new values
+            #rospy.logerr(dir(self._widget.model_selector.SelectedClicked))
+            self._widget.keyPressEvent = self._handle_model_changed_keypress
+
+            self._widget.model_selector.setModel(model)
+            self._widget.model_selector.setColumnHidden(1,True)
+            self._widget.model_selector.setColumnHidden(2,True)
+            self._widget.model_selector.setColumnHidden(3,True)
+            self._widget.model_selector.expandAll()
+            
+            self._widget.model_selector.viewport().installEventFilter(self)
+
         #hopefully ori_list is already set properly after the setup
         for body in self.ori_list:
             self.reset_rov.append( rospy.ServiceProxy(f"/{body}/rovio/reset", Empty) )
@@ -477,6 +481,7 @@ class VioPlugin(Plugin):
 
         path_to_generate_lib_at = os.path.splitext(self.lib_path)[0]
         
+        log.error("ATTENTION: Lib moment arm caller has hardcoded paths!! ")
         shutil.copy(self.model_path,"/srv/host_data/models/")
         #subprocess.run(f"python3 /catkin_ws/src/ros_biomech/lib_moment_arm/symbolic_moment_arm_v40.py --model={self.model_path} --results_destination={path_to_generate_lib_at}",shell=True)
         subprocess.run(f"/usr/bin/catkin_build_ws.bash --pkg lib_moment_arm -DSINGLE_TARGET_FILE={self.model_path}",shell=True)

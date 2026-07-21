@@ -369,7 +369,7 @@
 					<bool>false</bool>
 				</property>
 				<property name="text">
-					<string>/srv/host_data/</string>
+					<string>/</string>
 				</property>
 			</widget>
 			<widget class="QPushButton" name="do_set_name_button">
