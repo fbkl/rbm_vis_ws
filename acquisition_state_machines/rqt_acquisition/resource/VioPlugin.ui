@@ -7,7 +7,7 @@
 				<x>0</x>
 				<y>0</y>
 				<width>704</width>
-				<height>650</height>
+				<height>690</height>
 			</rect>
 		</property>
 		<property name="windowTitle">
@@ -22,7 +22,7 @@
 					<x>2</x>
 					<y>2</y>
 					<width>710</width>
-					<height>300</height>
+					<height>360</height>
 				</rect>
 			</property>
 
@@ -68,7 +68,7 @@
 						<x>607</x>
 						<y>235</y>
 						<width>98</width>
-						<height>27</height>
+						<height>90</height>
 					</rect>
 				</property>
 				<property name="text">
@@ -101,307 +101,307 @@
 					<string>/</string>
 				</property>
 			</widget>
-		</widget>
-		<widget class="QLabel" name="current_state_text">
-			<property name="geometry">
-				<rect>
-					<x>5</x>
-					<y>320</y>
-					<width>500</width>
-					<height>27</height>
-				</rect>
-			</property>
-			<property name="text">
-				<string>State:</string>
-			</property>
-		</widget>
-		
-		<widget class="QPushButton" name="don_button">
-			<property name="geometry">
-				<rect>
-					<x>5</x>
-					<y>360</y>
-					<width>200</width>
-					<height>27</height>
-				</rect>
-			</property>
-			<property name="text">
-				<string>Wear Cameras Facing Marker</string>
-			</property>
-		</widget>
 
 
-		<widget class="QPushButton" name="recalibrate_rovio_button">
-			<property name="geometry">
-				<rect>
-					<x>5</x>
-					<y>400</y>
-					<width>200</width>
-					<height>27</height>
-				</rect>
-			</property>
-			<property name="text">
-				<string>Reset Rovios</string>
-			</property>
-		</widget>
-		<widget class="QPushButton" name="calib_vio_button">
-			<property name="geometry">
-				<rect>
-					<x>5</x>
-					<y>440</y>
-					<width>200</width>
-					<height>27</height>
-				</rect>
-			</property>
-			<property name="text">
-				<string>Face markers</string>
-			</property>
-		</widget>
-		<widget class="QPushButton" name="calibrate_button">
-			<property name="geometry">
-				<rect>
-					<x>5</x>
-					<y>467</y>
-					<width>200</width>
-					<height>44</height>
-				</rect>
-			</property>
-			<property name="text">
-				<string>Calibrate</string>
-			</property>
-		</widget>
-		<widget class="QPushButton" name="start_button">
-			<property name="geometry">
-				<rect>
-					<x>5</x>
-					<y>511</y>
-					<width>200</width>
-					<height>45</height>
-				</rect>
-			</property>
-			<property name="text">
-				<string>Start</string>
-			</property>
-		</widget>
-		<widget class="QPushButton" name="stop_button">
-			<property name="geometry">
-				<rect>
-					<x>5</x>
-					<y>556</y>
-					<width>200</width>
-					<height>44</height>
-				</rect>
-			</property>
-			<property name="text">
-				<string>Stop</string>
-			</property>
-		</widget>
-		
-		<widget class="QPushButton" name="another_button">
-			<property name="geometry">
-				<rect>
-					<x>5</x>
-					<y>600</y>
-					<width>200</width>
-					<height>27</height>
-				</rect>
-			</property>
-			<property name="text">
-				<string>Another?</string>
-			</property>
-		</widget>
-		<widget class="QPushButton" name="generate_action_notebook_button">
-			<property name="geometry">
-				<rect>
-					<x>5</x>
-					<y>640</y>
-					<width>200</width>
-					<height>27</height>
-				</rect>
-			</property>
-			<property name="text">
-				<string>Generate Action Notebook</string>
-			</property>
-		</widget>
-		
-		<widget class="QPushButton" name="srv1_button">
-			<property name="geometry">
-				<rect>
-					<x>5</x>
-					<y>680</y>
-					<width>300</width>
-					<height>37</height>
-				</rect>
-			</property>
-			<property name="text">
-				<string>reseterino rovios</string>
-			</property>
-		</widget>
-		<widget class="QPushButton" name="srv2_button">
-			<property name="geometry">
-				<rect>
-					<x>5</x>
-					<y>730</y>
-					<width>300</width>
-					<height>37</height>
-				</rect>
-			</property>
-			<property name="text">
-				<string>calibrate markers</string>
-			</property>
-		</widget>
-
-		<widget class="QGroupBox" name="activity_group">
-			<property name="title">
-				<string>Activity stuff</string>
-			</property>
-			<property name="geometry">
-				<rect>
-					<x>210</x>
-					<y>350</y>
-					<width>502</width>
-					<height>320</height>
-				</rect>
-			</property>
-
-			<widget class="QLabel" name="subject_id_label">
+			<widget class="QLabel" name="units_selected">
 				<property name="geometry">
 					<rect>
 						<x>5</x>
-						<y>25</y>
-						<width>68</width>
+						<y>295</y>
+						<width>298</width>
 						<height>27</height>
 					</rect>
 				</property>
 				<property name="text">
-					<string>Subject ID:</string>
+					<string>Units [X/2]:</string>
 				</property>
 			</widget>
-			<widget class="QLabel" name="activity_label">
+			<widget class="QLineEdit" name="units_selected_name">
 				<property name="geometry">
 					<rect>
-						<x>165</x>
-						<y>25</y>
-						<width>48</width>
+						<x>105</x>
+						<y>295</y>
+						<width>495</width>
 						<height>27</height>
 					</rect>
 				</property>
 				<property name="text">
-					<string>Activity:</string>
-				</property>
-			</widget>
-			<widget class="QLabel" name="session_label">
-				<property name="geometry">
-					<rect>
-						<x>340</x>
-						<y>25</y>
-						<width>48</width>
-						<height>27</height>
-					</rect>
-				</property>
-				<property name="text">
-					<string>Session:</string>
-				</property>
-			</widget>
-			<widget class="QLineEdit" name="subject_id_name">
-				<property name="geometry">
-					<rect>
-						<x>75</x>
-						<y>25</y>
-						<width>78</width>
-						<height>27</height>
-					</rect>
-				</property>
-				<property name="placeholderText">
-					<string>SubjectID0</string>
-				</property>
-			</widget>
-			<widget class="QLineEdit" name="activity_name">
-				<property name="geometry">
-					<rect>
-						<x>225</x>
-						<y>25</y>
-						<width>98</width>
-						<height>27</height>
-					</rect>
-				</property>
-				<property name="placeholderText">
-					<string>SomeActivity</string>
-				</property>
-			</widget>
-			<widget class="QLineEdit" name="session_name">
-				<property name="geometry">
-					<rect>
-						<x>395</x>
-						<y>25</y>
-						<width>102</width>
-						<height>27</height>
-					</rect>
-				</property>
-				<property name="placeholderText">
-					<string>SomeSession</string>
-				</property>
-			</widget>
-			<widget class="QLabel" name="resolved_path_label">
-				<property name="geometry">
-					<rect>
-						<x>5</x>
-						<y>65</y>
-						<width>68</width>
-						<height>27</height>
-					</rect>
-				</property>
-				<property name="text">
-					<string>Save Path:</string>
+					<string>[]</string>
 				</property>
 			</widget>
 
-			<widget class="QLineEdit" name="resolved_path_name">
-				<property name="geometry">
-					<rect>
-						<x>75</x>
-						<y>65</y>
-						<width>423</width>
-						<height>27</height>
-					</rect>
-				</property>
-				<property name="readOnly">
-					<bool>false</bool>
-				</property>
-				<property name="text">
-					<string>/</string>
-				</property>
-			</widget>
-			<widget class="QPushButton" name="do_set_name_button">
+			<widget class="QLabel" name="model_bodies_text">
 				<property name="geometry">
 					<rect>
 						<x>5</x>
-						<y>100</y>
-						<width>492</width>
+						<y>325</y>
+						<width>298</width>
 						<height>27</height>
 					</rect>
 				</property>
 				<property name="text">
-					<string>Set Name</string>
+					<string>[]</string>
 				</property>
 			</widget>
 
 
-			<widget class="QTextEdit" name="description">
+
+
+		</widget>
+		<widget class="QGroupBox" name="lower_group">
+			<property name="geometry">
+					<rect>
+						<x>2</x>
+						<y>350</y>
+						<width>710</width>
+						<height>430</height>
+					</rect>
+			</property>
+			<widget class="QLabel" name="current_state_text">
 				<property name="geometry">
 					<rect>
 						<x>5</x>
-						<y>140</y>
-						<width>492</width>
-						<height>60</height>
+						<y>20</y>
+						<width>500</width>
+						<height>27</height>
 					</rect>
 				</property>
-				<property name="documentTitle">
-					<string>Description</string>
+				<property name="text">
+					<string>State:</string>
 				</property>
-				<property name="placeholderText">
-					<string>Write down some description of the trial or note to be saved as metadata.</string>
+			</widget>
+			<widget class="QGroupBox" name="recording_group">
+				<property name="title">
+					<string>Record Stuffs</string>
 				</property>
+				<property name="geometry">
+					<rect>
+						<x>1</x>
+						<y>220</y>
+						<width>208</width>
+						<height>150</height>
+					</rect>
+				</property>
+
+				<widget class="QPushButton" name="start_button">
+					<property name="geometry">
+						<rect>
+							<x>3</x>
+							<y>30</y>
+							<width>200</width>
+							<height>45</height>
+						</rect>
+					</property>
+					<property name="text">
+						<string>Start</string>
+					</property>
+				</widget>
+				<widget class="QPushButton" name="stop_button">
+					<property name="geometry">
+						<rect>
+							<x>3</x>
+							<y>75</y>
+							<width>200</width>
+							<height>45</height>
+						</rect>
+					</property>
+					<property name="text">
+						<string>Stop</string>
+					</property>
+				</widget>
+
+				<widget class="QPushButton" name="another_button">
+					<property name="geometry">
+						<rect>
+							<x>3</x>
+							<y>120</y>
+							<width>200</width>
+							<height>27</height>
+						</rect>
+					</property>
+					<property name="text">
+						<string>Another?</string>
+					</property>
+				</widget>
+			</widget>
+			<widget class="QPushButton" name="generate_action_notebook_button">
+				<property name="geometry">
+					<rect>
+						<x>4</x>
+						<y>390</y>
+						<width>200</width>
+						<height>27</height>
+					</rect>
+				</property>
+				<property name="text">
+					<string>Generate Action Notebook</string>
+				</property>
+			</widget>
+
+			<widget class="QWidget" name="calibration">
+				<property name="geometry">
+					<rect>
+						<x>-4</x>
+						<y>50</y>
+						<width>220</width>
+						<height>320</height>
+					</rect>
+				</property>
+
+
+			</widget>
+			<widget class="QGroupBox" name="activity_group">
+				<property name="title">
+					<string>Activity stuff</string>
+				</property>
+				<property name="geometry">
+					<rect>
+						<x>210</x>
+						<y>60</y>
+						<width>502</width>
+						<height>320</height>
+					</rect>
+				</property>
+
+				<widget class="QLabel" name="subject_id_label">
+					<property name="geometry">
+						<rect>
+							<x>5</x>
+							<y>25</y>
+							<width>68</width>
+							<height>27</height>
+						</rect>
+					</property>
+					<property name="text">
+						<string>Subject ID:</string>
+					</property>
+				</widget>
+				<widget class="QLabel" name="activity_label">
+					<property name="geometry">
+						<rect>
+							<x>165</x>
+							<y>25</y>
+							<width>48</width>
+							<height>27</height>
+						</rect>
+					</property>
+					<property name="text">
+						<string>Activity:</string>
+					</property>
+				</widget>
+				<widget class="QLabel" name="session_label">
+					<property name="geometry">
+						<rect>
+							<x>340</x>
+							<y>25</y>
+							<width>48</width>
+							<height>27</height>
+						</rect>
+					</property>
+					<property name="text">
+						<string>Session:</string>
+					</property>
+				</widget>
+				<widget class="QLineEdit" name="subject_id_name">
+					<property name="geometry">
+						<rect>
+							<x>75</x>
+							<y>25</y>
+							<width>78</width>
+							<height>27</height>
+						</rect>
+					</property>
+					<property name="placeholderText">
+						<string>SubjectID0</string>
+					</property>
+				</widget>
+				<widget class="QLineEdit" name="activity_name">
+					<property name="geometry">
+						<rect>
+							<x>225</x>
+							<y>25</y>
+							<width>98</width>
+							<height>27</height>
+						</rect>
+					</property>
+					<property name="placeholderText">
+						<string>SomeActivity</string>
+					</property>
+				</widget>
+				<widget class="QLineEdit" name="session_name">
+					<property name="geometry">
+						<rect>
+							<x>395</x>
+							<y>25</y>
+							<width>102</width>
+							<height>27</height>
+						</rect>
+					</property>
+					<property name="placeholderText">
+						<string>SomeSession</string>
+					</property>
+				</widget>
+				<widget class="QLabel" name="resolved_path_label">
+					<property name="geometry">
+						<rect>
+							<x>5</x>
+							<y>65</y>
+							<width>68</width>
+							<height>27</height>
+						</rect>
+					</property>
+					<property name="text">
+						<string>Save Path:</string>
+					</property>
+				</widget>
+
+				<widget class="QLineEdit" name="resolved_path_name">
+					<property name="geometry">
+						<rect>
+							<x>75</x>
+							<y>65</y>
+							<width>423</width>
+							<height>27</height>
+						</rect>
+					</property>
+					<property name="readOnly">
+						<bool>false</bool>
+					</property>
+					<property name="text">
+						<string>/</string>
+					</property>
+				</widget>
+				<widget class="QPushButton" name="do_set_name_button">
+					<property name="geometry">
+						<rect>
+							<x>5</x>
+							<y>100</y>
+							<width>492</width>
+							<height>27</height>
+						</rect>
+					</property>
+					<property name="text">
+						<string>Set Name</string>
+					</property>
+				</widget>
+
+
+				<widget class="QTextEdit" name="description">
+					<property name="geometry">
+						<rect>
+							<x>5</x>
+							<y>140</y>
+							<width>492</width>
+							<height>60</height>
+						</rect>
+					</property>
+					<property name="documentTitle">
+						<string>Description</string>
+					</property>
+					<property name="placeholderText">
+						<string>Write down some description of the trial or note to be saved as metadata.</string>
+					</property>
+				</widget>
 			</widget>
 		</widget>
 	</widget>
