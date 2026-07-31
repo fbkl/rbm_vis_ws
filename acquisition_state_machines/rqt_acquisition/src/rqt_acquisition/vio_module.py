@@ -7,7 +7,8 @@ import rospkg
 
 from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
-from python_qt_binding.QtWidgets import QWidget, QFileSystemModel, QTreeView, QDirModel, QTreeWidgetItemIterator
+from python_qt_binding.QtWidgets import QWidget, QFileSystemModel, QTreeView, QDirModel, QTreeWidgetItemIterator, QPushButton
+from python_qt_binding.QtWidgets import QVBoxLayout
 from python_qt_binding.QtGui import QIcon
 import python_qt_binding.QtGui as QtGui
 import python_qt_binding.QtCore as QtCore
@@ -20,6 +21,7 @@ import glob
 import re
 import shutil
 import datetime
+import osrt_ros
 
 rospack = rospkg.RosPack()
 MY_pkg_path = rospack.get_path("rqt_acquisition")
@@ -126,10 +128,19 @@ def validate_model(model_file):
             return False
 
 
+def load_ui(filename):
+    file = QFile(filename)
+    file.open(QFile.ReadOnly)
+    widget = QUiLoader().load(file)
+    file.close()
+    return widget
+
+
 
 class VioPlugin(Plugin):
 
     def __init__(self, context):
+        self.units_available = 0 #TODO: read other todo
         super(VioPlugin, self).__init__(context)
         # Give QObjects reasonable names
         self.setObjectName('VioPlugin')
@@ -158,13 +169,17 @@ class VioPlugin(Plugin):
             print('unknowns: ', unknowns)
 
         # Create QWidget
+        #self._widget = QWidget()
+
         self._widget = QWidget()
+        self._widget.setObjectName('VioPluginUi')
         # Get path to UI file which should be in the "resource" folder of this package
         ui_file = os.path.join(rospkg.RosPack().get_path('rqt_acquisition'), 'resource', 'VioPlugin.ui')
         # Extend the widget with all attributes and children from UI file
         loadUi(ui_file, self._widget)
+        #layout = QVBoxLayout()
+        #self._widget.setLayout(layout)
         # Give QObjects reasonable names
-        self._widget.setObjectName('VioPluginUi')
         # Show _widget.windowTitle on left-top of each plugin (when 
         # it's set in _widget). This is useful when you open multiple 
         # plugins at once. Also if you open multiple instances of your 
@@ -173,6 +188,16 @@ class VioPlugin(Plugin):
         if context.serial_number() > 1:
             self._widget.setWindowTitle(self._widget.windowTitle() + (' (%d)' % context.serial_number()))
         # Add widget to the user interface
+
+
+
+        # after loading your main window:
+        self.calibration_ui = QWidget()
+        ui_file2 = os.path.join(rospkg.RosPack().get_path('rqt_acquisition'), 'resource', 'Calibration.ui')
+        loadUi(ui_file2, self.calibration_ui)
+        
+        layout = QVBoxLayout(self._widget.calibration)
+        layout.addWidget(self.calibration_ui)
 
         self._widget.start_button.setIcon(QIcon.fromTheme('media-record'))
         self._widget.start_button.clicked[bool].connect(self._handle_start_clicked)
@@ -183,17 +208,17 @@ class VioPlugin(Plugin):
         self._widget.another_button.setIcon(QIcon.fromTheme('media-skip-forward'))
         self._widget.another_button.clicked[bool].connect(self._handle_another_clicked)
 
-        self._widget.calibrate_button.clicked[bool].connect(self._handle_calibrate_clicked)
-        self._widget.calib_vio_button.clicked[bool].connect(self._handle_calib_vio_clicked)
-        self._widget.recalibrate_rovio_button.clicked[bool].connect(self._handle_recalibrate_rovio_clicked)
-        self._widget.don_button.clicked[bool].connect(self._handle_don_clicked)
+        self.calibration_ui.calibrate_button.clicked[bool].connect(self._handle_calibrate_clicked)
+        self.calibration_ui.calib_vio_button.clicked[bool].connect(self._handle_calib_vio_clicked)
+        self.calibration_ui.recalibrate_rovio_button.clicked[bool].connect(self._handle_recalibrate_rovio_clicked)
+        self.calibration_ui.don_button.clicked[bool].connect(self._handle_don_clicked)
         self._widget.do_set_name_button.clicked[bool].connect(self._handle_do_set_name_clicked)
 
         self._widget.generate_lib_moment_arm_button.clicked[bool].connect(self._handle_lib_moment_clicked)
         self._widget.generate_action_notebook_button.clicked[bool].connect(self._generate_notebook_clicked)
         
-        self._widget.srv1_button.clicked[bool].connect(self._srv1_clicked)
-        self._widget.srv2_button.clicked[bool].connect(self._srv2_clicked)
+        self.calibration_ui.srv1_button.clicked[bool].connect(self._srv1_clicked)
+        self.calibration_ui.srv2_button.clicked[bool].connect(self._srv2_clicked)
 
         self.flexbe_commander_publisher = rospy.Publisher("/flexbe/command/transition", OutcomeRequest, queue_size=1)
         self.state_subscriber           = rospy.Subscriber("/flexbe/behavior_update", String, callback=self.update_state, queue_size=1)
@@ -203,7 +228,7 @@ class VioPlugin(Plugin):
             model = QFileSystemModel()
 
 
-            models_path ="/srv/shared/osim" 
+            models_path ="/srv/shared/" 
             if os.path.exists(models_path):
                 model.setRootPath(models_path)
             else:
@@ -226,7 +251,7 @@ class VioPlugin(Plugin):
 
         self.my_namespace = 'rqt_acquisition'
 
-        self._widget.calibrate_button.setStyleSheet("font-size: 24px;");
+        self.calibration_ui.calibrate_button.setStyleSheet("font-size: 24px;");
         self._widget.start_button.setStyleSheet("font-size: 24px;");
         self._widget.stop_button.setStyleSheet("font-size: 24px;");
 
@@ -243,7 +268,7 @@ class VioPlugin(Plugin):
 
         self.set_from_params()
         self.update_paths()
-        log.warn(f"what text is in the widget? {self._widget.resolved_path_name.text()}")
+        rospy.logwarn(f"what text is in the widget? {self._widget.resolved_path_name.text()}")
         
         if True: ## we update the directory widget after getting the new values
             #rospy.logerr(dir(self._widget.model_selector.SelectedClicked))
@@ -258,9 +283,7 @@ class VioPlugin(Plugin):
             self._widget.model_selector.viewport().installEventFilter(self)
 
         #hopefully ori_list is already set properly after the setup
-        for body in self.ori_list:
-            self.reset_rov.append( rospy.ServiceProxy(f"/{body}/rovio/reset", Empty) )
-            self.calib_rov.append( rospy.ServiceProxy(f"/{body}/calib", Empty) )
+        self.update_ori_list()
 
         print_events(self._widget.activity_name)
         
@@ -269,25 +292,47 @@ class VioPlugin(Plugin):
         self._widget.subject_id_name.textChanged.connect(self.update_paths)
         self._widget.description.textChanged.connect(self.update_paths)
         self._widget.resolved_path_name.textChanged.connect(self.update_path_higher_priority)
+        self._widget.units_selected_name.textChanged.connect(self.update_ori_from_text_change)
         #self._widget.subject_id_name.changeEvent = self.update_paths
 
             #print_events(self._widget.model_selector)
         context.add_widget(self._widget)
+        
+        #layout = self._widget.layout()
+        #layout = QVBoxLayout(self._widget)
+        #layout.addWidget(self.calibration_ui)
+        #context.add_widget(self.calibration_ui)
         
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.timerEvent)
         self.timer.start(1000)
         self.disable_buttons()
 
+        self.model_bodies = [] ## this should contain the model bodies once we have erm some model
+        self.units_available = 2 ## TODO: now it is only 2, silver and rpi5-ubuntu, we need to make this variable at some point and pass this list too.
+
+    def update_ori_from_text_change(self):
+        rospy.loginfo("update ori text changed")
+        #self.update_things()  ## this is being called for every event anyway
+        self.update_units()
+        self.set_to_params()
+
+    def update_ori_list(self):
+        self.reset_rov = []
+        self.calib_rov = []
+        for body in self.ori_list:
+            self.reset_rov.append( rospy.ServiceProxy(f"/{body}/rovio/reset", Empty) )
+            self.calib_rov.append( rospy.ServiceProxy(f"/{body}/calib", Empty) )
+
     def disable_buttons(self):
-        self._widget.calibrate_button.setEnabled(False)
+        self.calibration_ui.calibrate_button.setEnabled(False)
         self._widget.start_button.setEnabled(False)
         self._widget.stop_button.setEnabled(False)
         self._widget.another_button.setEnabled(False)
         self._widget.activity_group.setEnabled(False)
-        self._widget.don_button.setEnabled(False)
-        self._widget.recalibrate_rovio_button.setEnabled(False)
-        self._widget.calib_vio_button.setEnabled(False)
+        self.calibration_ui.don_button.setEnabled(False)
+        self.calibration_ui.recalibrate_rovio_button.setEnabled(False)
+        self.calibration_ui.calib_vio_button.setEnabled(False)
         self._widget.do_set_name_button.setEnabled(False)
         self._widget.generate_action_notebook_button.setEnabled(False)
 
@@ -295,7 +340,7 @@ class VioPlugin(Plugin):
         self.disable_buttons()
         self._widget.current_state_text.setText("Current State:"+msg.data)
         if msg.data == "/Get_Ready_For_Calibration":
-            self._widget.calibrate_button.setEnabled(True)
+            self.calibration_ui.calibrate_button.setEnabled(True)
         if msg.data == "/Start_Recording_Question_Mark":
             self._widget.start_button.setEnabled(True)
         if "/Recording" in msg.data:
@@ -308,9 +353,9 @@ class VioPlugin(Plugin):
             self._widget.activity_group.setEnabled(True)
 
         if "don_cameras" in msg.data:
-            self._widget.don_button.setEnabled(True)
+            self.calibration_ui.don_button.setEnabled(True)
         if "calib_vio" in msg.data:
-            self._widget.calib_vio_button.setEnabled(True)
+            self.calibration_ui.calib_vio_button.setEnabled(True)
         if "Say_To_Change_Name" in msg.data:
             self._widget.do_set_name_button.setEnabled(True)
         
@@ -357,6 +402,7 @@ class VioPlugin(Plugin):
                         "session_num"       :self.session_num,
                         "save_path"         :self.save_path,
                         "description_text"  :self.description_text,
+                        "ori_list"          :self.ori_list,
                         "weight"            :self.weight}
 
         rospy.logdebug(the_params)
@@ -373,7 +419,7 @@ class VioPlugin(Plugin):
         return EmptyResponse()
 
     def update_widget_states(self, req = None):
-        rospy.logdebug("updating widget states")
+        rospy.loginfo("updating widget states")
         self._widget.resolved_path_name.setText(   self.save_path )
         self._widget.model_selected_name.setText(self.model_path)
         self.lib_path_exists, self.lib_path = check_if_lib_moment_arm_exists_at_path(self.model_path)
@@ -414,6 +460,8 @@ class VioPlugin(Plugin):
         #        (it).setSelected(True)
         #        break
         #    it += 1
+        
+        self._widget.repaint()
 
         return EmptyResponse()
 
@@ -444,13 +492,47 @@ class VioPlugin(Plugin):
 
     def update_things(self, event=None):
         self.model_path = self._widget.model_selected_name.text()
+        self.model_bodies= osrt_ros.parse_bodies(self.model_path)
+        self._widget.model_bodies_text.setText(repr(self.model_bodies))
         self.lib_path_exists, self.lib_path = check_if_lib_moment_arm_exists_at_path(self.model_path)
         if self.lib_path_exists:
             self._widget.lib_moment_arm_text.setText("[V] "+self.lib_path)
         else:
             self._widget.lib_moment_arm_text.setText("[X] "+self.lib_path)
         self.set_to_params()
-            
+        
+        #self._widget.repaint()
+    
+    def update_units(self):
+
+        try:
+            #print("UPDATING UNITS")
+            maybe_ori_list = self._widget.units_selected_name.text()
+            if "[" in maybe_ori_list and "]" in maybe_ori_list:
+                maybe_more_ori_list = eval(maybe_ori_list)
+                if type(maybe_more_ori_list) == list: #it is or returns a list, we are a go.
+                    print("ima list")
+                    ori_list = maybe_more_ori_list
+                    for lbody in ori_list:
+                        if lbody not in self.model_bodies:
+                            print("found a body in your list not in the model body list, unfortunately")
+                            return
+                    ##if we got here we have all the list bodies in the model bodies
+                    lbodies = len(ori_list)
+                    mbodies = len(self.model_bodies)
+                    
+                    self._widget.units_selected.setText(f"Units [{lbodies}/{self.units_available}]")
+                    if lbodies == self.units_available:
+                        self._widget.units_selected.setStyleSheet("color: green;");
+                        self.ori_list = ori_list
+                        self.update_ori_list()
+                #self.update_widget_states()
+
+        except:
+            self._widget.units_selected.setStyleSheet("color: red;");
+            self._widget.repaint()
+            #traceback.print_exc()
+
 
     def timerEvent(self):
         #rospy.loginfo("timerEvent triggered")
@@ -543,6 +625,7 @@ class VioPlugin(Plugin):
             traceback.print_exception()
         
         self._widget.set_and_go_button.setEnabled(False)
+        self._widget.units_selected_name.setEnabled(False)
     
     def _handle_another_clicked(self):
         rospy.loginfo("another clicked!")
@@ -561,14 +644,14 @@ class VioPlugin(Plugin):
             traceback.print_exception()
 
     def _handle_calibrate_clicked(self):
-        rospy.loginfo("calibrate_button clicked!")
+        rospy.loginfo("calibration_ui.calibrate_button clicked!")
         try:
             command_msg = OutcomeRequest()
             command_msg.outcome = 0
             command_msg.target = 'Get_Ready_For_Calibration'
             self.flexbe_commander_publisher.publish(command_msg)
             #self._widget.model_group.setEnabled(Falseart)
-            self._widget.calibrate_button.setEnabled(False)
+            self.calibration_ui.calibrate_button.setEnabled(False)
         except:
             traceback.print_exception()
             
@@ -586,9 +669,9 @@ class VioPlugin(Plugin):
         except:
             traceback.print_exception()
     def _handle_don_clicked(self):
-        rospy.loginfo("don_button clicked!")
+        rospy.loginfo("calibration_ui.don_button clicked!")
         try:
-            self._widget.don_button.setEnabled(False)
+            self.calibration_ui.don_button.setEnabled(False)
             command_msg = OutcomeRequest()
             command_msg.outcome = 0
             command_msg.target = 'don_cameras'
@@ -597,9 +680,9 @@ class VioPlugin(Plugin):
         except:
             traceback.print_exception()
     def _handle_calib_vio_clicked(self):
-        rospy.loginfo("calib_vio_button clicked!")
+        rospy.loginfo("calibration_ui.calib_vio_button clicked!")
         try:
-            self._widget.calib_vio_button.setEnabled(False)
+            self.calibration_ui.calib_vio_button.setEnabled(False)
             command_msg = OutcomeRequest()
             command_msg.outcome = 0
             command_msg.target = 'calib_vio'
@@ -608,9 +691,9 @@ class VioPlugin(Plugin):
         except:
             traceback.print_exception()
     def _handle_recalibrate_rovio_clicked(self): ###eh this is different!
-        rospy.loginfo("recalibrate_rovio_button clicked!")
+        rospy.loginfo("calibration_ui.recalibrate_rovio_button clicked!")
         try:
-            self._widget.recalibrate_rovio_button.setEnabled(False)
+            self.calibration_ui.recalibrate_rovio_button.setEnabled(False)
             command_msg = OutcomeRequest()
             command_msg.outcome = 0
             command_msg.target = 'recalibrate_rovio'
@@ -620,7 +703,7 @@ class VioPlugin(Plugin):
             traceback.print_exception()
     
     def _srv1_clicked(self): ###eh this is different!
-        rospy.loginfo("srv1_button clicked!")
+        rospy.loginfo("calibration_ui.srv1_button clicked!")
         try:
             for some_srv in self.reset_rov:
                 some_srv()
@@ -628,7 +711,7 @@ class VioPlugin(Plugin):
             traceback.print_exception()
     
     def _srv2_clicked(self): ###eh this is different!
-        rospy.loginfo("srv2_button clicked!")
+        rospy.loginfo("calibration_ui.srv2_button clicked!")
         try:
             for some_srv in self.calib_rov:
                 some_srv()
@@ -656,8 +739,10 @@ class VioPlugin(Plugin):
                         if ".osim" in info.absoluteFilePath():
                             self.model_path = info.absoluteFilePath()
                             self._widget.model_selected_name.setText(self.model_path)
+                            self.update_units()
                             #rospy.logdebug(self.model_path)
                             self.lib_path_exists, self.lib_path = check_if_lib_moment_arm_exists_at_path(self.model_path) 
+                            self.update_things()
                         return True
                 ## this is not working
                 if event.modifiers() == QtCore.Qt.MetaModifier:
