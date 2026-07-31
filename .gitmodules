@@ -1,12 +1,14 @@
 [submodule "ar_test"]
 	path = ar_test
 	url = https://github.com/opensimrt-ros/ar_test.git
+	pushurl = git@github.com:fbkl/ar_test.git
 [submodule "ar_track_alvar"]
 	path = ar_track_alvar
 	url = https://github.com/opensimrt-ros/ar_track_alvar.git
 [submodule "osrt_ros"]
 	path = osrt_ros
 	url = https://github.com/opensimrt-ros/osrt_ros.git
+	pushurl = git@github.com:fbkl/osrt_ros.git
 [submodule "vicon_sync"]
 	path = vicon_sync
 	url = https://github.com/opensimrt-ros/vicon_sync.git
@@ -16,12 +18,16 @@
 [submodule "acquisition_state_machines/flexbe_app"]
 	path = acquisition_state_machines/flexbe_app
 	url = https://github.com/FlexBE/flexbe_app.git
+	pushurl = git@github.com:fbkl/flexbe_app.git
 [submodule "acquisition_state_machines/acquisition_of_raw_data"]
 	path = acquisition_state_machines/acquisition_of_raw_data
 	url = https://github.com/opensimrt-ros/acquisition_of_raw_data.git
+	pushurl = git@github.com:fbkl/acquisition_of_raw_data.git
 [submodule "acquisition_state_machines/acquisition_fb_behaviors"]
 	path = acquisition_state_machines/acquisition_fb_behaviors
 	url = https://github.com/opensimrt-ros/acquisition_fb_behaviors.git
+	pushurl = git@github.com:fbkl/acquisition_fb_behaviors.git
 [submodule "vio_launch"]
 	path = vio_launch
 	url = git@github.com:fbkl/vio_launch.git
+
