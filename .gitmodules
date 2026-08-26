@@ -31,3 +31,6 @@
 	path = vio_launch
 	url = git@github.com:fbkl/vio_launch.git
 
+[submodule "diagnostics_schema"]
+	path = diagnostics_schema
+	url = git@github.com:fbkl/diagnostics_schema.git
