@@ -267,6 +267,9 @@ class VioPlugin(Plugin):
         self.ori_list = ["thoRax","radIus"]
 
         self.set_from_params()
+        # so much plumbing
+        self._widget.units_selected_name.setText(repr(self.ori_list))
+
         self.update_paths()
         rospy.logwarn(f"what text is in the widget? {self._widget.resolved_path_name.text()}")
         
