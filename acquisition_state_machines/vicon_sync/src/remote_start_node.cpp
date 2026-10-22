@@ -136,6 +136,7 @@ int main( int argc, char *argv[] )
 	auto setNamePathSrv 		= nh.advertiseService("set_name_and_path", 	setNamePath);
 
 	//they exist but do nothing
+	auto writeSrv 		= nh.advertiseService("write", do_nothing);
 	auto writeStoSrv 	= nh.advertiseService("write_sto", do_nothing);
 	auto clearLoggersSrv 	= nh.advertiseService("clear_loggers", do_nothing);
 
