@@ -1,14 +1,12 @@
 [submodule "ar_test"]
 	path = ar_test
-	url = https://github.com/opensimrt-ros/ar_test.git
-	pushurl = git@github.com:fbkl/ar_test.git
+	url = git@github.com:fbkl/ar_test.git
 [submodule "ar_track_alvar"]
 	path = ar_track_alvar
-	url = https://github.com/opensimrt-ros/ar_track_alvar.git
+	url = git@github.com:fbkl/ar_track_alvar.git
 [submodule "osrt_ros"]
 	path = osrt_ros
-	url = https://github.com/opensimrt-ros/osrt_ros.git
-	pushurl = git@github.com:fbkl/osrt_ros.git
+	url = git@github.com:fbkl/osrt_ros.git
 [submodule "vicon_sync"]
 	path = vicon_sync
 	url = https://github.com/opensimrt-ros/vicon_sync.git
